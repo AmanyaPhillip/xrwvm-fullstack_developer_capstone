@@ -1,55 +1,38 @@
-from .models import CarMake, CarModel  # E302: Added 1 blank line
-# from django.db.models import F
-
+from .models import CarMake, CarModel
 
 def initiate():
     car_make_data = [
-        {"name": "Nissan", "description": "Great cars. Japanese technology"},
-        {"name": "Mercedes-Benz",
-         "description": "Great cars. German technology"},
-        {"name": "Audi", "description": "Great cars. German technology"},
-        {"name": "Kia", "description": "Great cars. Korean technology"},
-        {"name": "Honda", "description": "Great cars. Japanese technology"},
+        {"name":"NISSAN", "description":"Great cars. Japanese technology"},
+        {"name":"Mercedes", "description":"Great cars. German technology"},
+        {"name":"Audi", "description":"Great cars. German technology"},
+        {"name":"Kia", "description":"Great cars. Korean technology"},
+        {"name":"Toyota", "description":"Great cars. Japanese technology"},
     ]
 
-    for data in car_make_data:  # E117: This loop should not be over-indented.
-        CarMake.objects.create(
-            name=data['name'],
-            description=data['description'])  # E501: Line too long.
+    car_make_instances = []
+    for data in car_make_data:
+            car_make_instances.append(CarMake.objects.create(name=data['name'], description=data['description']))
 
-    # E303: Remove extra blank line.
-    # E231, E501: Add whitespace after colons and break long lines.
+
+    # Create CarModel instances with the corresponding CarMake instances
     car_model_data = [
-        {"car_make": "Nissan", "name": "Pathfinder",
-         "type": "SUV", "year": 2023},
-        {"car_make": "Nissan", "name": "Frontier",
-         "type": "Truck", "year": 2023},
-        {"car_make": "Nissan", "name": "Leaf", "type": "Sedan", "year": 2023},
-        {"car_make": "Mercedes-Benz", "name": "C-Class",
-         "type": "Sedan", "year": 2023},
-        {"car_make": "Mercedes-Benz", "name": "E-Class",
-         "type": "Sedan", "year": 2023},
-        {"car_make": "Mercedes-Benz", "name": "GLC SUV",
-         "type": "SUV", "year": 2023},
-        {"car_make": "Audi", "name": "A4", "type": "Sedan", "year": 2023},
-        {"car_make": "Audi", "name": "Q5", "type": "SUV", "year": 2023},
-        {"car_make": "Audi", "name": "e-tron", "type": "SUV", "year": 2023},
-        {"car_make": "Kia", "name": "Telluride", "type": "SUV", "year": 2023},
-        {"car_make": "Kia", "name": "Sorento", "type": "SUV", "year": 2023},
-        {"car_make": "Kia", "name": "Forte", "type": "Sedan", "year": 2023},
-        {"car_make": "Honda", "name": "CR-V", "type": "SUV", "year": 2023},
-        {"car_make": "Honda", "name": "Civic", "type": "Sedan", "year": 2023},
-        {"car_make": "Honda", "name": "Pilot", "type": "SUV", "year": 2023},
+      {"name":"Pathfinder", "type":"SUV", "year": 2023, "car_make":car_make_instances[0]},
+      {"name":"Qashqai", "type":"SUV", "year": 2023, "car_make":car_make_instances[0]},
+      {"name":"XTRAIL", "type":"SUV", "year": 2023, "car_make":car_make_instances[0]},
+      {"name":"A-Class", "type":"SUV", "year": 2023, "car_make":car_make_instances[1]},
+      {"name":"C-Class", "type":"SUV", "year": 2023, "car_make":car_make_instances[1]},
+      {"name":"E-Class", "type":"SUV", "year": 2023, "car_make":car_make_instances[1]},
+      {"name":"A4", "type":"SUV", "year": 2023, "car_make":car_make_instances[2]},
+      {"name":"A5", "type":"SUV", "year": 2023, "car_make":car_make_instances[2]},
+      {"name":"A6", "type":"SUV", "year": 2023, "car_make":car_make_instances[2]},
+      {"name":"Sorrento", "type":"SUV", "year": 2023, "car_make":car_make_instances[3]},
+      {"name":"Carnival", "type":"SUV", "year": 2023, "car_make":car_make_instances[3]},
+      {"name":"Cerato", "type":"Sedan", "year": 2023, "car_make":car_make_instances[3]},
+      {"name":"Corolla", "type":"Sedan", "year": 2023, "car_make":car_make_instances[4]},
+      {"name":"Camry", "type":"Sedan", "year": 2023, "car_make":car_make_instances[4]},
+      {"name":"Kluger", "type":"SUV", "year": 2023, "car_make":car_make_instances[4]},
+        # Add more CarModel instances as needed
     ]
 
-    for data in car_model_data:  # E117: This loop should not be over-indented.
-        # E131: Align continuation line for hanging indent.
-        car_make_instance = CarMake.objects.get(name=data['car_make'])
-        CarModel.objects.create(
-            car_make=car_make_instance,
-            name=data['name'],
-            car_type=data['type'],
-            year=data['year']
-        )  # E501: Line too long. Break into multiple lines for readability.
-
-# W292: Add a newline at the very end of the file.
+    for data in car_model_data:
+            CarModel.objects.create(name=data['name'], car_make=data['car_make'], type=data['type'], year=data['year'])
