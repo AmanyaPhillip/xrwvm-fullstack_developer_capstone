@@ -13,7 +13,7 @@ class CarMake(models.Model):
         # E501: line too long (83 > 79 characters) - BROKEN
         # E261: at least two spaces before inline comment - ADDED
         return (f"Name: {self.name}, "  # E114/E116: indentation for comments
-                  f"Description: {self.description}") # E501: Line too long
+                f"Description: {self.description}")  # E501: Line too long
 
 # E302: expected 2 blank lines, found 1 - ADDED
 class CarModel(models.Model):
@@ -27,16 +27,15 @@ class CarModel(models.Model):
     year = models.IntegerField()  # E261, E501: Assuming a year like 2023
 
     def __str__(self):
-        # E29: Line too long - BROKEN, E261: at least two spaces before inline comment - ADDED
         return (f"Name: {self.name}, "
                 f"Make: {self.car_make.name}, "
                 f"Type: {self.car_type}, "
-                f"Year: {self.year}")  # E501: Line too long
+                f"Year: {self.year}") 
 
-# E302: expected 2 blank lines, found 1 - ADDED
+
 class CarDealer:
     def __init__(self, address, city, full_name, id, lat, long,
-                 short_name, st, zip):  # E501: Line too long (82 > 79 characters)
+                 short_name, st, zip):  
         self.address = address
         self.city = city
         self.full_name = full_name
@@ -48,13 +47,13 @@ class CarDealer:
         self.zip = zip
 
     def __str__(self):
-        # E261: at least two spaces before inline comment - ADDED
-        return f"Dealer name: {self.full_name}, State: {self.st}"  # E501: Line too long
+        
+        return f"Dealer name: {self.full_name}, State: {self.st}" 
 
-# E302: expected 2 blank lines, found 1 - ADDED
+
 class DealerReview:
     def __init__(self, dealership, name, purchase, review, purchase_date,
-                 car_make, car_model, car_year, sentiment): # E501: Line too long (101 > 79 characters) ; E261
+                 car_make, car_model, car_year, sentiment): 
         self.dealership = dealership
         self.name = name
         self.purchase = purchase
@@ -63,12 +62,12 @@ class DealerReview:
         self.car_make = car_make
         self.car_model = car_model
         self.car_year = car_year
-        self.sentiment = sentiment  # E261: This will be added by the sentiment analysis service
+        self.sentiment = sentiment  
 
     def __str__(self):
         # E261: at least two spaces before inline comment - ADDED
         # E501: line too long (89 > 79 characters) - BROKEN
         return (f"Review: {self.review}, "
-                f"Sentiment: {self.sentiment}") # E501: Line too long
+                f"Sentiment: {self.sentiment}")  # E501: Line too long
 
 # W293: blank line contains whitespace - REMOVED trailing whitespace
