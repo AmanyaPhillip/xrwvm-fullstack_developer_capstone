@@ -1,5 +1,6 @@
 from .models import CarMake, CarModel  # E302: Added 1 blank line
-#from django.db.models import F
+# from django.db.models import F
+
 
 def initiate():
     car_make_data = [
@@ -13,7 +14,8 @@ def initiate():
 
     for data in car_make_data:  # E117: This loop should not be over-indented.
         CarMake.objects.create(
-            name=data['name'], description=data['description'])  # E501: Line too long.
+            name=data['name'],
+            description=data['description'])  # E501: Line too long.
 
     # E303: Remove extra blank line.
     # E231, E501: Add whitespace after colons and break long lines.
