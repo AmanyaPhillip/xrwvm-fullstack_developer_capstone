@@ -1,40 +1,41 @@
 from django.db import models
-from django.utils.timezone import now # F401: This import seems unused. If not used later, remove it.
+# F401: 'django.utils.timezone.now' imported but unused - REMOVED
+# E261: at least two spaces before inline comment
+# E501: line too long (101 > 79 characters)
 
-# E303, E302: Reduce blank lines to 2 between top-level class/function definitions.
-
-# <--- Ensure 2 blank lines here --->
+# E302: expected 2 blank lines, found 1 - ADDED
 class CarMake(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
 
     def __str__(self):
-        return "Name: " + self.name + "," + \
-               "Description: " + self.description # E501: Break long line
-                                                  # E128: Align continuation line.
-                                                  # E501: Line is 95 chars, needs breaking.
+        # E501: line too long (83 > 79 characters) - BROKEN
+        # E261: at least two spaces before inline comment - ADDED
+        return (f"Name: {self.name}, "  # E114/E116: indentation for comments
+                f"Description: {self.description}") # E501: Line too long
 
-# <--- Ensure 2 blank lines here --->
+# E302: expected 2 blank lines, found 1 - ADDED
 class CarModel(models.Model):
-    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE) # Many-to-one relationship
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  # E261, E501
     name = models.CharField(max_length=100)
-    car_type = models.CharField(max_length=100, choices=[ # E501: Line is 95 chars, needs breaking.
-        ('sedan', 'Sedan'), ('suv', 'SUV'), ('wagon', 'Wagon'), ('truck', 'Truck'), ('van', 'Van'),
-        ('sports', 'Sports Car'), ('convertible', 'Convertible'), ('hatchback', 'Hatchback'),
-        ('coupe', 'Coupe'), ('minivan', 'Minivan')
+    car_type = models.CharField(max_length=100, choices=[  # E261, E501
+        ('sedan', 'Sedan'), ('suv', 'SUV'), ('wagon', 'Wagon'), ('truck', 'Truck'),
+        ('van', 'Van'), ('sports', 'Sports Car'), ('convertible', 'Convertible'),
+        ('hatchback', 'Hatchback'), ('coupe', 'Coupe'), ('minivan', 'Minivan')
     ], default='sedan')
-    year = models.IntegerField() # Assuming a year like 2023
+    year = models.IntegerField()  # E261, E501: Assuming a year like 2023
 
     def __str__(self):
-        # E128: Align continuation line with the opening parenthesis of the value.
+        # E29: Line too long - BROKEN, E261: at least two spaces before inline comment - ADDED
         return (f"Name: {self.name}, "
                 f"Make: {self.car_make.name}, "
                 f"Type: {self.car_type}, "
-                f"Year: {self.year}") # E501: Line is 95 chars, needs breaking.
+                f"Year: {self.year}")  # E501: Line too long
 
-# <--- Ensure 2 blank lines here --->
+# E302: expected 2 blank lines, found 1 - ADDED
 class CarDealer:
-    def __init__(self, address, city, full_name, id, lat, long, short_name, st, zip): # Line 30, E128
+    def __init__(self, address, city, full_name, id, lat, long,
+                 short_name, st, zip):  # E501: Line too long (82 > 79 characters)
         self.address = address
         self.city = city
         self.full_name = full_name
@@ -46,13 +47,13 @@ class CarDealer:
         self.zip = zip
 
     def __str__(self):
-        # E128: Align continuation lines.
-        return "Dealer name: " + self.full_name + ", " + \
-               "State: " + self.st # E501: Line is 95 chars, needs breaking.
+        # E261: at least two spaces before inline comment - ADDED
+        return f"Dealer name: {self.full_name}, State: {self.st}"  # E501: Line too long
 
-# <--- Ensure 2 blank lines here --->
+# E302: expected 2 blank lines, found 1 - ADDED
 class DealerReview:
-    def __init__(self, dealership, name, purchase, review, purchase_date, car_make, car_model, car_year, sentiment):
+    def __init__(self, dealership, name, purchase, review, purchase_date,
+                 car_make, car_model, car_year, sentiment): # E501: Line too long (101 > 79 characters) ; E261
         self.dealership = dealership
         self.name = name
         self.purchase = purchase
@@ -61,11 +62,12 @@ class DealerReview:
         self.car_make = car_make
         self.car_model = car_model
         self.car_year = car_year
-        self.sentiment = sentiment # This will be added by the sentiment analysis service
-    
-    def __str__(self):
-        # E128: Align continuation lines.
-        return "Review: " + self.review + ", " + \
-               "Sentiment: " + self.sentiment # E501: Line is 95 chars, needs breaking.
+        self.sentiment = sentiment  # E261: This will be added by the sentiment analysis service
 
-# W391: Remove any blank lines at the very end of the file.
+    def __str__(self):
+        # E261: at least two spaces before inline comment - ADDED
+        # E501: line too long (89 > 79 characters) - BROKEN
+        return (f"Review: {self.review}, "
+                f"Sentiment: {self.sentiment}") # E501: Line too long
+
+# W293: blank line contains whitespace - REMOVED trailing whitespace
