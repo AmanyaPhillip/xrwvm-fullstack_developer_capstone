@@ -3,6 +3,7 @@ from django.db import models
 # E261: at least two spaces before inline comment
 # E501: line too long (101 > 79 characters)
 
+
 # E302: expected 2 blank lines, found 1 - ADDED
 class CarMake(models.Model):
     name = models.CharField(max_length=100)
@@ -12,7 +13,7 @@ class CarMake(models.Model):
         # E501: line too long (83 > 79 characters) - BROKEN
         # E261: at least two spaces before inline comment - ADDED
         return (f"Name: {self.name}, "  # E114/E116: indentation for comments
-                f"Description: {self.description}") # E501: Line too long
+                  f"Description: {self.description}") # E501: Line too long
 
 # E302: expected 2 blank lines, found 1 - ADDED
 class CarModel(models.Model):
