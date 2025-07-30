@@ -15,13 +15,15 @@ class CarMake(models.Model):
         return (f"Name: {self.name}, "  # E114/E116: indentation for comments
                 f"Description: {self.description}")  # E501: Line too long
 
-# E302: expected 2 blank lines, found 1 - ADDED
+
 class CarModel(models.Model):
-    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  # E261, E501
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     car_type = models.CharField(max_length=100, choices=[  # E261, E501
-        ('sedan', 'Sedan'), ('suv', 'SUV'), ('wagon', 'Wagon'), ('truck', 'Truck'),
-        ('van', 'Van'), ('sports', 'Sports Car'), ('convertible', 'Convertible'),
+        ('sedan', 'Sedan'), ('suv', 'SUV'),
+        ('wagon', 'Wagon'), ('truck', 'Truck'),
+        ('van', 'Van'), ('sports', 'Sports Car'),
+        ('convertible', 'Convertible'),
         ('hatchback', 'Hatchback'), ('coupe', 'Coupe'), ('minivan', 'Minivan')
     ], default='sedan')
     year = models.IntegerField()  # E261, E501: Assuming a year like 2023
@@ -30,12 +32,12 @@ class CarModel(models.Model):
         return (f"Name: {self.name}, "
                 f"Make: {self.car_make.name}, "
                 f"Type: {self.car_type}, "
-                f"Year: {self.year}") 
+                f"Year: {self.year}")
 
 
 class CarDealer:
     def __init__(self, address, city, full_name, id, lat, long,
-                 short_name, st, zip):  
+                 short_name, st, zip):
         self.address = address
         self.city = city
         self.full_name = full_name
@@ -47,13 +49,12 @@ class CarDealer:
         self.zip = zip
 
     def __str__(self):
-        
-        return f"Dealer name: {self.full_name}, State: {self.st}" 
+        return f"Dealer name: {self.full_name}, State: {self.st}"
 
 
 class DealerReview:
     def __init__(self, dealership, name, purchase, review, purchase_date,
-                 car_make, car_model, car_year, sentiment): 
+                 car_make, car_model, car_year, sentiment):
         self.dealership = dealership
         self.name = name
         self.purchase = purchase
@@ -62,7 +63,7 @@ class DealerReview:
         self.car_make = car_make
         self.car_model = car_model
         self.car_year = car_year
-        self.sentiment = sentiment  
+        self.sentiment = sentiment
 
     def __str__(self):
         # E261: at least two spaces before inline comment - ADDED
