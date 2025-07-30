@@ -21,6 +21,15 @@ from django.conf.urls.static import static # Add these for static files in devel
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('djangoapp/', include('djangoapp.urls')), # E231: missing whitespace after ',' ; E501: Line too long.
     path('', include('djangoapp.urls')), # This makes your 'index' route accessible at the root
+=======
+    path('djangoapp/', include('djangoapp.urls')),
+    path('', TemplateView.as_view(template_name="Home.html")),
+    path('about/', TemplateView.as_view(template_name="About.html")),
+    path('contact/', TemplateView.as_view(template_name="Contact.html")),
+    path('login/', TemplateView.as_view(template_name="index.html")),
+    path('register/', TemplateView.as_view(template_name="index.html")),
+>>>>>>> parent of 749909e (Module 4)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

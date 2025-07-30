@@ -13,6 +13,7 @@ sentiment_analyzer_url = os.environ.get('sentiment_analyzer_url')
 
 def get_request(endpoint, **kwargs): # E275: Add space after keyword 'def' and before arguments.
     params = ""
+<<<<<<< HEAD
     if kwargs:
         for key, value in kwargs.items(): # E231: Missing whitespace after ','.
             params = params + key + "=" + value + "&" # E225: Missing whitespace around operator.
@@ -21,6 +22,25 @@ def get_request(endpoint, **kwargs): # E275: Add space after keyword 'def' and b
     # W293, E303: Remove blank lines containing whitespace, reduce multiple blank lines.
     # W293: Remove blank lines with whitespace.
     print(f"GET from {request_url}")
+=======
+    if(kwargs):
+        for key,value in kwargs.items():
+            params=params+key+"="+value+"&"
+
+    request_url = backend_url+endpoint+"?"+params
+
+    print("GET from {} ".format(request_url))
+    try:
+        # Call get method of requests library with URL and parameters
+        response = requests.get(request_url)
+        return response.json()
+    except:
+        # If any error occurs
+        print("Network exception occurred")
+
+def analyze_review_sentiments(text):
+    request_url = sentiment_analyzer_url+"analyze/"+text
+>>>>>>> parent of 749909e (Module 4)
     try:
         response = requests.get(request_url)
         response.raise_for_status() # Raise HTTPError for bad responses (4xx or 5xx)
@@ -38,6 +58,7 @@ def post_request(endpoint, payload, **kwargs):
     # This function needs more robust error handling and structure
     print(f"POST to {endpoint} with payload: {payload}")
     try:
+<<<<<<< HEAD
         response = requests.post(endpoint, json=payload, params=kwargs)
         response.raise_for_status()
         print(f"Response Status: {response.status_code}")
@@ -117,3 +138,10 @@ def analyze_review_sentiments(review_text):
         print(f"Error decoding JSON from sentiment analyzer: {e}")
         print(f"Raw response text: {response.text if 'response' in locals() else 'No response received'}")
         return None # Return None or a default error dict if JSON is invalid
+=======
+        response = requests.post(request_url,json=data_dict)
+        print(response.json())
+        return response.json()
+    except:
+        print("Network exception occurred")
+>>>>>>> parent of 749909e (Module 4)

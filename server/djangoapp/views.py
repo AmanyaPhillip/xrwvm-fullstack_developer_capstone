@@ -81,6 +81,7 @@ def get_dealer_reviews(request, dealer_id): # E275: Missing whitespace after key
     # Check if reviews is not None and is iterable
     if reviews:
         for review_detail in reviews:
+<<<<<<< HEAD
             # print(review_detail['review']) # Debugging print
             # Ensure review_detail['review'] exists and is a string
             if 'review' in review_detail and isinstance(review_detail['review'], str):
@@ -95,6 +96,12 @@ def get_dealer_reviews(request, dealer_id): # E275: Missing whitespace after key
                 review_detail['sentiment'] = 'missing_review_text' # Default if review text is missing/invalid
                 print(f"WARNING: 'review' key missing or not a string in: {review_detail}")
         return JsonResponse({"status": 200, "reviews": reviews})
+=======
+            response = analyze_review_sentiments(review_detail['review'])
+            print(response)
+            review_detail['sentiment'] = response['sentiment']
+        return JsonResponse({"status":200,"reviews":reviews})
+>>>>>>> parent of 749909e (Module 4)
     else:
         return JsonResponse({"status": 404, "message": "No reviews found or API error"})
 
@@ -112,9 +119,14 @@ def get_dealer_details(request, dealer_id): # E275: Missing whitespace after key
     else:
         return JsonResponse({"status": 405, "message": "Method Not Allowed"})
 
+<<<<<<< HEAD
 # E302: Add 2 blank lines.
 def add_review(request): # E275: Missing whitespace after keyword.
     if request.method == "POST":
+=======
+def add_review(request):
+    if(request.user.is_anonymous == False):
+>>>>>>> parent of 749909e (Module 4)
         data = json.loads(request.body)
         try:
             post_request("/insert_review", data)
