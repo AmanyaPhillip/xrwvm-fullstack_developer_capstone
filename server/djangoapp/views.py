@@ -104,6 +104,7 @@ def get_dealer_reviews(request, dealer_id):
         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
         reviews = get_request(endpoint)
         for review_detail in reviews:
+            print(review_detail['review'])
             response = analyze_review_sentiments(review_detail['review'])
             print(response)
             review_detail['sentiment'] = response['sentiment']
@@ -121,6 +122,9 @@ def get_dealer_details(request, dealer_id):
         return JsonResponse({"status":400,"message":"Bad Request"})
 
 def add_review(request):
+    print("inside Add review")
+    print(request.user)
+    print(request.user.is_anonymous)
     if(request.user.is_anonymous == False):
         data = json.loads(request.body)
         try:
